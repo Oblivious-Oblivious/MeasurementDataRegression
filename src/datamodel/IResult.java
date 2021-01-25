@@ -52,14 +52,4 @@ public interface IResult {
 	 * @return A HashMap<String, Double>, where the grouping time unit is represented as a String and the aggregate value as a Double
 	 */
 	HashMap<String, Double> getAggregateMeterAC();
-
-	/**
-	 * The aggregate function used to produce statistics over the source measurements
-	 * 
-	 * @return A string with the aggregate function (e.g., "sum", "avg", ...}
-	 */
-	String getAggregateFunction();
-
-
-
 }

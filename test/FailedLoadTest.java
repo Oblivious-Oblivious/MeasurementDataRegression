@@ -85,3 +85,4 @@ public class FailedLoadTest {
 		assertEquals(wrongOutput, -1);
 	}
 }
+

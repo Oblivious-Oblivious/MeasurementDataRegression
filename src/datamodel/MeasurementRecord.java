@@ -2,24 +2,22 @@ package datamodel;
 
 /**
  * @class MeasurementRecord
- * @desc: A private model for injection that describes the data that will be recorded and aggregated
- * @param date a DateModel object holding dates
- * @param time a TimeModel object holding times
- * @param doubles The rest of the 9 fields we read from the file
- * @param _delimeter_error a flag signaling whether the file has a different delimeter than the one we set
+ * @brief A private model for injection that describes the data that will be recorded and aggregated
  */
 public class MeasurementRecord {
+    /**
+     * date -> a DateModel object holding dates
+     * time -> a TimeModel object holding times
+     * doubles -> The rest of the 9 fields we read from the file
+     * _delimiter_error -> a flag signaling whether the file has a different delimiter than the one we set
+     */
     private DateModel date;
     private TimeModel time;
-    private double global_active_power;
-    private double global_reactive_power;
-    private double voltage;
-    private double global_intensity;
     private double sub_metering_1; /* Kitchen */
     private double sub_metering_2; /* Laundry */
     private double sub_metering_3; /* AC */
 
-    private boolean _delimeter_error;
+    private boolean _delimiter_error;
 
     public DateModel getDate() {
         return this.date;
@@ -33,34 +31,6 @@ public class MeasurementRecord {
     }
     public void setTime(TimeModel time) {
         this.time = time;
-    }
-
-    public double getGlobal_active_power() {
-        return this.global_active_power;
-    }
-    public void setGlobal_active_power(double global_active_power) {
-        this.global_active_power = global_active_power;
-    }
-
-    public double getGlobal_reactive_power() {
-        return this.global_reactive_power;
-    }
-    public void setGlobal_reactive_power(double global_reactive_power) {
-        this.global_reactive_power = global_reactive_power;
-    }
-
-    public double getVoltage() {
-        return this.voltage;
-    }
-    public void setVoltage(double voltage) {
-        this.voltage = voltage;
-    }
-
-    public double getGlobal_intensity() {
-        return this.global_intensity;
-    }
-    public void setGlobal_intensity(double global_intensity) {
-        this.global_intensity = global_intensity;
     }
 
     public double getSub_metering_1() {
@@ -84,10 +54,18 @@ public class MeasurementRecord {
         this.sub_metering_3 = sub_metering_3;
     }
 
-    public boolean get__delimeter_error() {
-        return this._delimeter_error;
+    public boolean get__delimiter_error() {
+        return this._delimiter_error;
     }
-    public void set__delimeter_error(boolean _delimeter_error) {
-        this._delimeter_error = _delimeter_error;
+    public void set__delimiter_error(boolean _delimiter_error) {
+        this._delimiter_error = _delimiter_error;
     }
+
+    public void setGlobal_active_power(double global_active_power) {}
+
+    public void setGlobal_reactive_power(double global_reactive_power) {}
+
+    public void setVoltage(double voltage) {}
+
+    public void setGlobal_intensity(double global_intensity) {}
 }

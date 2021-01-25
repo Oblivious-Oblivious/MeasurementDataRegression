@@ -6,23 +6,25 @@ import datamodel.FileHandler;
 import java.lang.StringBuffer;
 
 /**
- * @class: Reporter
- * @desc: Implements the IResultReporter interface and its base functions
+ * @class Reporter
+ * @brief Implements the IResultReporter interface and its base functions
  * 			primarily dealing with crafting a report of the collected data
- * @param exportType The type of export file (html, md, txt)
- * @param result The aggregated results object containing hashmaps
- * @param filename The name of the file to write to
- * @param fileHandler The file handler object for writing the reports
  */
 public class Reporter implements IResultReporter {
+	/**
+	 * exportType -> The type of export file (html, md, txt)
+	 * result -> The aggregated results object containing hashmaps
+	 * filename -> The name of the file to write to
+	 * fileHandler -> The file handler object for writing the reports
+	 */
 	private String exportType;
 	private IResult result;
 	private String filename;
 	private FileHandler fileHandler;
 
 	/**
-	 * @func: writeReport
-	 * @desc: Writes the report on the database, and stores it for the next use case 
+	 * @message writeReport
+	 * @brief Writes the report on the database, and stores it for the next use case
 	 * @param constructedData The data string constructed according to the export type
 	 * @return the return type of the function
 	 */
@@ -34,8 +36,8 @@ public class Reporter implements IResultReporter {
 	}
 
 	/**
-	 * @func: writeAsHtml
-	 * @desc: Constructs a string buffer of report data using the html format
+	 * @message writeAsHtml
+	 * @brief Constructs a string buffer of report data using the html format
 	 * @return the return type of the function
 	 */
 	private int writeAsHtml() {
@@ -53,21 +55,30 @@ public class Reporter implements IResultReporter {
 			.append("<h2> Kitchen</h2>\n")
 			.append("<ul>\n");
 
-		result.getAggregateMeterKitchen().forEach((key, value) -> {
-			constructedData.append("<li>" + key + ": &nbsp;&nbsp;&nbsp;&nbsp;" + value + "\n");
-		});
+		result.getAggregateMeterKitchen().forEach((key, value) -> constructedData
+				.append("<li>")
+				.append(key)
+				.append(": &nbsp;&nbsp;&nbsp;&nbsp;")
+				.append(value)
+				.append("\n"));
 
 		constructedData.append("</ul>\n\n<h2> Laundry</h2>\n<ul>\n");
 		
-		result.getAggregateMeterLaundry().forEach((key, value) -> {
-			constructedData.append("<li>" + key + ": &nbsp;&nbsp;&nbsp;&nbsp;" + value + "\n");
-		});
+		result.getAggregateMeterLaundry().forEach((key, value) -> constructedData
+				.append("<li>")
+				.append(key)
+				.append(": &nbsp;&nbsp;&nbsp;&nbsp;")
+				.append(value)
+				.append("\n"));
 
 		constructedData.append("</ul>\n\n<h2> A/C</h2>\n<ul>\n");
 
-		result.getAggregateMeterAC().forEach((key, value) -> {
-			constructedData.append("<li>" + key + ": &nbsp;&nbsp;&nbsp;&nbsp;" + value + "\n");
-		});
+		result.getAggregateMeterAC().forEach((key, value) -> constructedData
+				.append("<li>")
+				.append(key)
+				.append(": &nbsp;&nbsp;&nbsp;&nbsp;")
+				.append(value)
+				.append("\n"));
 		constructedData.append("</ul>\n\n");
 
 		if(writeReport(constructedData.toString()) == -1)
@@ -78,8 +89,8 @@ public class Reporter implements IResultReporter {
 	}
 
 	/**
-	 * @func: writeAsMd
-	 * @desc: Constructs a string buffer of report data using the markdown format
+	 * @message writeAsMd
+	 * @brief Constructs a string buffer of report data using the markdown format
 	 * @return the return type of the function
 	 */
 	private int writeAsMd() {
@@ -89,21 +100,30 @@ public class Reporter implements IResultReporter {
 			.append("avg consumption (watt-hours) over (a) Kitchen, (b) Laundry, (c) A/C\n\n")
 			.append("## Kitchen\n\n");
 
-		result.getAggregateMeterKitchen().forEach((key, value) -> {
-			constructedData.append("* " + key + ": \t" + value + "\n");
-		});
+		result.getAggregateMeterKitchen().forEach((key, value) -> constructedData
+				.append("* ")
+				.append(key)
+				.append(": \t")
+				.append(value)
+				.append("\n"));
 
 		constructedData.append("\n\n## Laundry\n\n");
 
-		result.getAggregateMeterLaundry().forEach((key, value) -> {
-			constructedData.append("* " + key + ": \t" + value + "\n");
-		});
+		result.getAggregateMeterLaundry().forEach((key, value) -> constructedData
+				.append("* ")
+				.append(key)
+				.append(": \t")
+				.append(value)
+				.append("\n"));
 
 		constructedData.append("\n\n## A/C\n\n");
 
-		result.getAggregateMeterAC().forEach((key, value) -> {
-			constructedData.append("* " + key + ": \t" + value + "\n");
-		});
+		result.getAggregateMeterAC().forEach((key, value) -> constructedData
+				.append("* ")
+				.append(key)
+				.append(": \t")
+				.append(value)
+				.append("\n"));
 
 		if(writeReport(constructedData.toString()) == -1)
 			return -1;
@@ -113,8 +133,8 @@ public class Reporter implements IResultReporter {
 	}
 
 	/**
-	 * @func: writeAsTxt
-	 * @desc: Constructs a string buffer of report data using the text format
+	 * @message writeAsTxt
+	 * @brief Constructs a string buffer of report data using the text format
 	 * @return the return type of the function
 	 */
 	private int writeAsTxt() {
@@ -124,21 +144,30 @@ public class Reporter implements IResultReporter {
 			.append("avg consumption (watt-hours) over (a) Kitchen, (b) Laundry, (c) A/C\n\n")
 			.append("Kitchen\n--------------\n");
 		
-		result.getAggregateMeterKitchen().forEach((key, value) -> {
-			constructedData.append("* " + key + ": \t" + value + "\n");
-		});
+		result.getAggregateMeterKitchen().forEach((key, value) -> constructedData
+				.append("* ")
+				.append(key)
+				.append(": \t")
+				.append(value)
+				.append("\n"));
 
 		constructedData.append("\n\nLaundry\n--------------\n");
 
-		result.getAggregateMeterLaundry().forEach((key, value) -> {
-			constructedData.append("* " + key + ": \t" + value + "\n");
-		});
+		result.getAggregateMeterLaundry().forEach((key, value) -> constructedData
+				.append("* ")
+				.append(key)
+				.append(": \t")
+				.append(value)
+				.append("\n"));
 
 		constructedData.append("\n\nA/C\n--------------\n");
 
-		result.getAggregateMeterAC().forEach((key, value) -> {
-			constructedData.append("* " + key + ": \t" + value + "\n");
-		});
+		result.getAggregateMeterAC().forEach((key, value) -> constructedData
+				.append("* ")
+				.append(key)
+				.append(": \t")
+				.append(value)
+				.append("\n"));
 
 		if(writeReport(constructedData.toString()) == -1)
 			return -1;
@@ -148,8 +177,8 @@ public class Reporter implements IResultReporter {
 	}
 
 	/**
-	 * @Overriden func: reportResultInFile
-	 * @desc: Reports the contents of an aggregate result to a file
+	 * @message reportResultInFile
+	 * @brief Reports the contents of an aggregate result to a file
 	 * @param result an instance of a class implementing the IResult interface, containing the aggregate results
 	 * @param filename a String with the path of the file where the report will be written
 	 * @return 0 if the task completes successfully; a negative integer otherwise
@@ -163,12 +192,14 @@ public class Reporter implements IResultReporter {
 		if(fileHandler.createWriterFD() == -1)
 			return -1;
 
-		if(exportType.equals("html"))
-			return writeAsHtml();
-		else if(exportType.equals("md"))
-			return writeAsMd();
-		else if(exportType.equals("txt"))
-			return writeAsTxt();
+		switch(exportType) {
+			case "html":
+				return writeAsHtml();
+			case "md":
+				return writeAsMd();
+			case "txt":
+				return writeAsTxt();
+		}
 
 		System.out.println("The export type is neither html nor md nor txt");
 		return -1;

@@ -9,43 +9,42 @@ import java.util.ArrayList;
 
 /**
  * @class Loader
- * @desc: Implements the ILoader interface and its base functions
+ * @brief Implements the ILoader interface and its base functions
  * 			primarily dealing with loading and reading data files
- * @param <E> -> The type of collection data to read
- * @param delimeter a String with the delimeter between columns of the source fil
- * @param numFields an int with the number of columns in the input file
- * @param objCollection and empty list which will be loaded with the data from the input file
- * @param data a string that holds a line of data from the input files
- * @param fileHandler a custom FileHandler object for managine file descriptors
  */
 public class Loader<E extends MeasurementRecord> implements ILoader<E> {
-	private String delimeter;
+	/**
+	 * delimiter -> a String with the delimiter between columns of the source fil
+	 * numFields -> an int with the number of columns in the input file
+	 * objCollection -> and empty list which will be loaded with the data from the input file
+	 * fileHandler -> a custom FileHandler object for mainEngine file descriptors
+	 */
+	private String delimiter;
 	private int numFields;
 	private ArrayList<E> objCollection;
-	private String data;
 	private FileHandler fileHandler;
 	
 	/**
-	 * @func: writeToCollection
-	 * @desc: Writes the data to the provided collection
+	 * @message writeToCollection
+	 * @brief Writes the data to the provided collection
 	 * @return the return type of the function
 	 */
 	private int writeToCollection() {
 		/* Write data while reading */
 		while(true) {
-			data = fileHandler.readLineFromFile();
+			String data = fileHandler.readLineFromFile();
 			if(data == null)
 				break;
 
-			/* In most cases 'E' desolves into MeasurementRecord */
-			E dataRecord = createDataRecord(data, delimeter);
+			/* In most cases 'E' dissolves into MeasurementRecord */
+			E dataRecord = createDataRecord(data, delimiter);
 
 			/* Some line had wrong data */
 			if(dataRecord == null)
 				continue;
 
-			/* The delimeter is different than the one in the file */
-			if(dataRecord.get__delimeter_error() == true)
+			/* The delimiter is different than the one in the file */
+			if(dataRecord.get__delimiter_error())
 				return -1;
 
 			objCollection.add(dataRecord);
@@ -54,30 +53,30 @@ public class Loader<E extends MeasurementRecord> implements ILoader<E> {
 	}
 
 	/**
-	 * @func: createDataRecord
-	 * @desc: Creates a new E object and sets its fields according to what we read from the input file
+	 * @message createDataRecord
+	 * @brief Creates a new E object and sets its fields according to what we read from the input file
 	 * @param data the string we split into the different fields
-	 * @param delimeter the delimeter to which we split to
-	 * @return (downcasted MeasurementRecord into E) the filled data we want to insert to objCollection ArrayList
+	 * @param delimiter the delimiter to which we split to
+	 * @return (downcast MeasurementRecord into E) the filled data we want to insert to objCollection ArrayList
 	 */
 	@SuppressWarnings("unchecked")
-	private E createDataRecord(String data, String delimeter) {
-		String dataItems[] = data.split(delimeter);
-		String dateItems[];
-		String timeItems[];
+	private E createDataRecord(String data, String delimiter) {
+		String[] dataItems = data.split(delimiter);
+		String[] dateItems;
+		String[] timeItems;
 		try {
 			dateItems = dataItems[0].split("/");
 			timeItems = dataItems[1].split(":");
 		}
-		/* Posible excpetions on spliting, due to wrong inputs on the data files */
+		/* Possible exceptions on splitting, due to wrong inputs on the data files */
 		catch(Exception e) {
-			System.out.println("The delimeter you set was wrong for the specific input file.");
+			System.out.println("The delimiter you set was wrong for the specific input file.");
 			MeasurementRecord wrongData = new MeasurementRecord();	
-			wrongData.set__delimeter_error(true);
+			wrongData.set__delimiter_error(true);
 			return (E)wrongData;
 		}
 
-		/* Consider for possible inputs between the delimeter that are empty */
+		/* Consider for possible inputs between the delimiter that are empty */
 		if(dataItems.length != numFields)
 			return null;
 		
@@ -93,7 +92,7 @@ public class Loader<E extends MeasurementRecord> implements ILoader<E> {
 		catch(Exception e) { /* Swallow the error */
 			System.out.println("The file has a header line though you provided that it didn't.");
 			MeasurementRecord wrongData = new MeasurementRecord();
-			wrongData.set__delimeter_error(true);
+			wrongData.set__delimiter_error(true);
 			return (E)wrongData;
 		}
 		dateModel.setMonth(dateItems[1]);
@@ -118,19 +117,18 @@ public class Loader<E extends MeasurementRecord> implements ILoader<E> {
 	}
 
 	/**
-	 * @func: load
-	 * @desc: Reads the data from the given file and stores them in an ArrayList
+	 * @message load
+	 * @brief Reads the data from the given file and stores them in an ArrayList
 	 * @return the number of rows that are eventually added to objCollection
 	 * @param filename: a String with the name of the input file
-	 * @param delimeter: a String with the delimeter between columns of the source file
+	 * @param delimiter: a String with the delimiter between columns of the source file
 	 * @param hasHeaderLine: specifies whether the file has a header (true) or not (false)
 	 * @param numFields: an int with the number of columns in the input file
 	 * @param objCollection: and empty list which will be loaded with the data from the input file
-	 * @return the number of rows that are eventually added to objCollection
 	 */
 	@Override
-	public int load(String filename, String delimeter, boolean hasHeaderLine, int numFields, ArrayList<E> objCollection) {
-		this.delimeter = delimeter;
+	public int load(String filename, String delimiter, boolean hasHeaderLine, int numFields, ArrayList<E> objCollection) {
+		this.delimiter = delimiter;
 		this.numFields = numFields;
 		this.objCollection = objCollection;
 
@@ -143,13 +141,11 @@ public class Loader<E extends MeasurementRecord> implements ILoader<E> {
 		if(hasHeaderLine) {
 			/* Start reading from 2nd row and ignore the first line */
 			fileHandler.readLineFromFile();
-			if(writeToCollection() == -1)
-				return -1;
 		}
+
 		/* Start reading from 1st row */
-		else
-			if(writeToCollection() == -1)
-				return -1;
+		if(writeToCollection() == -1)
+			return -1;
 
 		fileHandler.closeFD();
 		/* TODO CHECK IF WE CLEAR THE COLLECTION AFTER WE GET MEASURES OR NOT */

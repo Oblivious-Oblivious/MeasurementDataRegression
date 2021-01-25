@@ -3,17 +3,16 @@ package datamodel;
 import java.util.ArrayList;
 
 /**
- * @class: History
- * @desc: Implements a history database model for saving aggregate metric reports 
- * @param reports An arraylist where ReportMetadataModels are saved
+ * @class History
+ * @brief Implements a history database model for saving aggregate metric reports
  */
 public class History {
-    private ArrayList<ReportMetadataModel> reports = new ArrayList<ReportMetadataModel>();
-    private FileHandler handler = new FileHandler("___db.dbfile");
-
     /**
-     * @Constructor
+     * reports -> An arraylist where ReportMetadataModels are saved
      */
+    private final ArrayList<ReportMetadataModel> reports = new ArrayList<>();
+    private final FileHandler handler = new FileHandler("___db.dbfile");
+
     public History() {
         /* TODO MAKE HISTORY UPDATE WHEN I DELETE A REPORT OUTSIDE THE FILE */
     	
@@ -23,7 +22,7 @@ public class History {
         String data;
         
         /* The data list to use in the loop for regaining saved reports */
-        ArrayList<String> dataList = new ArrayList<String>();
+        ArrayList<String> dataList = new ArrayList<>();
         
         /* Read all saved reports */
         while(true) {
@@ -36,7 +35,7 @@ public class History {
 
         /* For each item in the data list remap it into a ReportMetadataModel object and save in the reports arraylist */
         for(String item : dataList) {
-        	String list[] = item.split(";");
+        	String[] list = item.split(";");
         	String desc = list[0];
         	String export = list[1];
         	String output = list[2];
@@ -51,8 +50,8 @@ public class History {
     }
 
     /**
-     * @func: saveReport
-     * @desc: Saves the ReportMetadataModels into the arraylist of reports
+     * @message saveReport
+     * @brief Saves the ReportMetadataModels into the arraylist of reports
      * @param metadata the object to save
      */
     public void saveReport(ReportMetadataModel metadata) {
@@ -64,8 +63,8 @@ public class History {
     }
 
     /**
-     * @func: listReports
-     * @desc: Iterates over the reports arraylist and prints each saved report (not the measurements)
+     * @message listReports
+     * @brief Iterates over the reports arraylist and prints each saved report (not the measurements)
      */
     /* TODO FIND FULL FILE PATH INSTEAD OF LOCAL FOR REPORT HISTORY */
     public void listReports() {
@@ -81,8 +80,8 @@ public class History {
     }
 
     /**
-     * @func: getHistorySize
-     * @desc: Finds the size of the history arraylist
+     * @message getHistorySize
+     * @brief Finds the size of the history arraylist
      * @return the size
      */
     public int getHistorySize() {

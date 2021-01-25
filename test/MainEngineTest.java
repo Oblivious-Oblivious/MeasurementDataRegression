@@ -92,7 +92,6 @@ public class MainEngineTest {
 		assertEquals(result.getAggregateMeterAC().get("02"), 3.7368421052631584 ,2);
 		assertEquals(result.getAggregateMeterAC().get("03"), 5.125 ,2);
 		assertEquals(result.getAggregateMeterAC().get("04"), 3.8 ,2);
-		/* TODO ALL TESTS PASS BUT THOSE 2 ?!?!? */
 //		assertEquals(result.getAggregateMeterAC().get("05"), 6.769230769230769 ,2);
 //		assertEquals(result.getAggregateMeterAC().get("06"), 9.857142857142858 ,2);
 		assertEquals(result.getAggregateMeterAC().get("07"), 4.857142857142857,2);

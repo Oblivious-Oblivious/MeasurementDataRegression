@@ -2,7 +2,7 @@ package datamodel;
 
 /**
  * @class DateModel
- * @desc A custom model for describing dates
+ * @brief A custom model for describing dates
  */
 public class DateModel {
     private String day;

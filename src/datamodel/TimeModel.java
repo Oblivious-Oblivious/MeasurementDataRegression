@@ -2,7 +2,7 @@ package datamodel;
 
 /**
  * @class TimeModel
- * @desc A custom model for describing time
+ * @brief A custom model for describing time
  */
 public class TimeModel {
     private String hour;

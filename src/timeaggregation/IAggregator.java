@@ -15,13 +15,5 @@ public interface IAggregator {
 	 * @param description a String with a textual description of the result
 	 * @return A IResult object where the input is aggregated by time period, or null if sth goes wrong
 	 */
-	public IResult aggregateByTimeUnit(ArrayList<MeasurementRecord> inputMeasurements, String aggFunction, String description);
-
-	/**
-	 * Returns a textual description of the time granularity by which we aggregate data
-	 * 
-	 * @return a String with the granularity of the time aggregator
-	 */
-	public String getTimeUnitType();
-
+	IResult aggregateByTimeUnit(ArrayList<MeasurementRecord> inputMeasurements, String aggFunction, String description);
 }
